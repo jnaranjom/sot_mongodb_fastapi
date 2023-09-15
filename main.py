@@ -1,3 +1,5 @@
+""" FASTAPI with MongoDB APP for Network Automation
+"""
 from fastapi import FastAPI
 from dotenv import dotenv_values
 from pymongo import MongoClient
@@ -10,6 +12,7 @@ app = FastAPI()
 
 @app.on_event("startup")
 def startup_db_client():
+    """_summary_"""
     app.mongodb_client = MongoClient(config["ATLAS_URI"])
     app.database = app.mongodb_client[config["DB_NAME"]]
     print("\n Connected to the MongoDB database! \n")
@@ -17,6 +20,7 @@ def startup_db_client():
 
 @app.on_event("shutdown")
 def shutdown_db_client():
+    """_summary_"""
     app.mongodb_client.close()
 
 
@@ -25,4 +29,8 @@ app.include_router(router, tags=["locations", "devices"], prefix="/api")
 
 @app.get("/")
 def home():
+    """_summary_
+    Returns:
+        _type_: _description_
+    """
     return {"message": "API home page"}

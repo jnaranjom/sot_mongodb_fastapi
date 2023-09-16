@@ -12,9 +12,7 @@ class Locations(BaseModel):
     """
 
     site: str = Field(...)
-    bgp_asn: str = Field(...)
-    snmp_community: str = Field(...)
-    ospf_id: str = Field(...)
+    address: str = Field(...)
     city: str = Field(...)
     state: str = Field(...)
     zip_code: str = Field(...)
@@ -26,9 +24,7 @@ class Locations(BaseModel):
         schema_extra = {
             "example": {
                 "site": "lab01",
-                "bgp_asn": "65000",
-                "snmp_community": "lab01",
-                "ospf_id": "1",
+                "address": "1234 ABC Street",
                 "city": "Dallas",
                 "state": "Texas",
                 "zip_code": "75078",
@@ -44,9 +40,7 @@ class LocationsUpdate(BaseModel):
     """
 
     site: Optional[str]
-    bgp_asn: Optional[str]
-    snmp_community: Optional[str]
-    ospf_id: Optional[str]
+    address: Optional[str]
     city: Optional[str]
     state: Optional[str]
     zip_code: Optional[str]
@@ -57,9 +51,7 @@ class LocationsUpdate(BaseModel):
         schema_extra = {
             "example": {
                 "site": "lab01",
-                "bgp_asn": "65000",
-                "snmp_community": "lab01",
-                "ospf_id": "1",
+                "address": "1234 ABC Street",
                 "city": "Dallas",
                 "state": "Texas",
                 "zip_code": "75078",
@@ -78,9 +70,11 @@ class Devices(BaseModel):
     model: str = Field(...)
     ipv4_host: str = Field(...)
     hostname: str = Field(...)
-    role: str = Field(...)
+    role: dict = Field(...)
     asset_class: str = Field(...)
     os: str = Field(...)
+    site: str = Field(...)
+    fabric_id: str = Field(...)
 
     class Config:
         """_summary_"""
@@ -93,8 +87,10 @@ class Devices(BaseModel):
                 "os": "cisco.ios.ios",
                 "ipv4_host": "192.168.2.100/24",
                 "hostname": "lab01-edge01",
-                "role": "edge",
+                "role": {"name": "edge", "id": "01"},
                 "asset_class": "ip_router",
+                "site": "lab01",
+                "fabric_id": "10",
             }
         }
 
@@ -111,8 +107,10 @@ class DevicesUpdate(BaseModel):
     os: Optional[str]
     ipv4_host: Optional[str]
     hostname: Optional[str]
-    role: Optional[str]
+    role: Optional[dict]
     asset_class: Optional[str]
+    site: Optional[str]
+    fabric_id: Optional[str]
 
     class Config:
         """_summary_"""
@@ -124,7 +122,72 @@ class DevicesUpdate(BaseModel):
                 "os": "cisco.ios.ios",
                 "ipv4_host": "192.168.2.100/24",
                 "hostname": "lab01-edge01",
-                "role": "edge",
+                "role": {"name": "edge", "id": "01"},
                 "asset_class": "Texas",
+                "site": "lab01",
+                "fabric_id": "10",
+            }
+        }
+
+
+class Fabrics(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
+    fabric_id: str = Field(...)
+    ibgp_prefix: str = Field(...)
+    p2p_prefix: str = Field(...)
+    vtep_prefix: str = Field(...)
+    protocols: dict = Field(...)
+
+    class Config:
+        """_summary_"""
+
+        allow_population_by_field_name = True
+        schema_extra = {
+            "example": {
+                "fabric_id": "10",
+                "ibgp_prefix": "10.0.11.0/24",
+                "p2p_prefix": "172.16.2.0/24",
+                "vtep_prefix": "10.0.10.0/24",
+                "protocols": {
+                    "bgp": {"asn": "65100"},
+                    "ospf": {"area": "0", "process_id": "1", "max_lsa": "12000"},
+                    "vxlan": "",
+                },
+            }
+        }
+
+
+class FabricsUpdate(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
+    fabric_id: Optional[str]
+    ibgp_prefix: Optional[str]
+    p2p_prefix: Optional[str]
+    vtep_prefix: Optional[str]
+    protocols: Optional[dict]
+
+    class Config:
+        """_summary_"""
+
+        schema_extra = {
+            "example": {
+                "fabric_id": "10",
+                "ibgp_prefix": "10.0.11.0/24",
+                "p2p_prefix": "172.16.2.0/24",
+                "vtep_prefix": "10.0.10.0/24",
+                "protocols": {
+                    "bgp": {"asn": "65100"},
+                    "ospf": {"area": "0", "process_id": "1", "max_lsa": "12000"},
+                    "vxlan": "",
+                },
             }
         }

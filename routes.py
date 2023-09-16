@@ -3,7 +3,14 @@
 from typing import List
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
-from models import Locations, LocationsUpdate, Devices, DevicesUpdate
+from models import (
+    Locations,
+    LocationsUpdate,
+    Devices,
+    DevicesUpdate,
+    Fabrics,
+    FabricsUpdate,
+)
 
 router = APIRouter()
 
@@ -24,22 +31,6 @@ def list_locations(request: Request):
     """
     locations_list = list(request.app.database["Locations"].find(limit=100))
     return locations_list
-
-
-@router.get(
-    "/devices", response_description="List all devices", response_model=List[Devices]
-)
-def list_devices(request: Request):
-    """_summary_
-
-    Args:
-        request (Request): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    devices_list = list(request.app.database["Devices"].find(limit=100))
-    return devices_list
 
 
 @router.post(
@@ -67,6 +58,22 @@ def create_location(request: Request, location: Locations = Body(...)):
     return created_location
 
 
+@router.get(
+    "/devices", response_description="List all devices", response_model=List[Devices]
+)
+def list_devices(request: Request):
+    """_summary_
+
+    Args:
+        request (Request): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    devices_list = list(request.app.database["Devices"].find(limit=100))
+    return devices_list
+
+
 @router.post(
     "/devices",
     response_description="Create a device",
@@ -90,3 +97,44 @@ def create_device(request: Request, device: Devices = Body(...)):
     )
 
     return created_device
+
+
+@router.get(
+    "/fabrics", response_description="List all fabrics", response_model=List[Fabrics]
+)
+def list_fabrics(request: Request):
+    """_summary_
+
+    Args:
+        request (Request): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    fabrics_list = list(request.app.database["Fabrics"].find(limit=100))
+    return fabrics_list
+
+
+@router.post(
+    "/fabrics",
+    response_description="Create a fabric",
+    status_code=status.HTTP_201_CREATED,
+    response_model=Fabrics,
+)
+def create_fabric(request: Request, fabric: Fabrics = Body(...)):
+    """_summary_
+
+    Args:
+        request (Request): _description_
+        fabric (fabrics, optional): _description_. Defaults to Body(...).
+
+    Returns:
+        _type_: _description_
+    """
+    fabric = jsonable_encoder(fabric)
+    new_fabric = request.app.database["Fabrics"].insert_one(fabric)
+    created_fabric = request.app.database["Fabrics"].find_one(
+        {"_id": new_fabric.inserted_id}
+    )
+
+    return created_fabric

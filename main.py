@@ -24,13 +24,4 @@ def shutdown_db_client():
     app.mongodb_client.close()
 
 
-app.include_router(router, tags=["locations", "devices"], prefix="/api")
-
-
-@app.get("/")
-def home():
-    """_summary_
-    Returns:
-        _type_: _description_
-    """
-    return {"message": "API home page"}
+app.include_router(router, tags=["SoT Operations"], prefix="/api")

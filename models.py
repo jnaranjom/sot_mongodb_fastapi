@@ -191,3 +191,100 @@ class FabricsUpdate(BaseModel):
                 },
             }
         }
+
+
+class ACLs(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
+    name: str = Field(...)
+    version: str = Field(...)
+    entries: list = Field(...)
+
+    class Config:
+        """_summary_"""
+
+        allow_population_by_field_name = True
+        schema_extra = {
+            "example": {
+                "name": "mgmt",
+                "version": "0.0.1",
+                "entries": [
+                    {
+                        "action": "permit",
+                        "destination": "any",
+                        "modifier": "",
+                        "name": "mgmt",
+                        "port": "",
+                        "protocol": "ip",
+                        "range": "",
+                        "remark": "",
+                        "sn": "",
+                        "source": "192.168.2.0/24",
+                    },
+                    {
+                        "action": "permit",
+                        "destination": "any",
+                        "modifier": "0",
+                        "name": "mgmt",
+                        "port": "",
+                        "protocol": "ip",
+                        "range": "",
+                        "remark": "",
+                        "sn": "",
+                        "source": "192.168.1.0/24",
+                    },
+                ],
+            }
+        }
+
+
+class ACLsUpdate(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
+    name: Optional[str]
+    version: str = Field(...)
+    entries: Optional[list]
+
+    class Config:
+        """_summary_"""
+
+        schema_extra = {
+            "example": {
+                "name": "mgmt",
+                "version": "0.0.1",
+                "entries": [
+                    {
+                        "action": "permit",
+                        "destination": "any",
+                        "modifier": "",
+                        "name": "mgmt",
+                        "port": "",
+                        "protocol": "ip",
+                        "range": "",
+                        "remark": "",
+                        "sn": "",
+                        "source": "192.168.2.0/24",
+                    },
+                    {
+                        "action": "permit",
+                        "destination": "any",
+                        "modifier": "0",
+                        "name": "mgmt",
+                        "port": "",
+                        "protocol": "ip",
+                        "range": "",
+                        "remark": "",
+                        "sn": "",
+                        "source": "192.168.1.0/24",
+                    },
+                ],
+            }
+        }

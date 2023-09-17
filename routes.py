@@ -10,6 +10,8 @@ from models import (
     DevicesUpdate,
     Fabrics,
     FabricsUpdate,
+    ACLs,
+    ACLsUpdate,
 )
 
 router = APIRouter()
@@ -138,3 +140,40 @@ def create_fabric(request: Request, fabric: Fabrics = Body(...)):
     )
 
     return created_fabric
+
+
+@router.get("/acls", response_description="List all acls", response_model=List[ACLs])
+def list_acls(request: Request):
+    """_summary_
+
+    Args:
+        request (Request): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    acls_list = list(request.app.database["ACLs"].find(limit=100))
+    return acls_list
+
+
+@router.post(
+    "/acls",
+    response_description="Create a acl",
+    status_code=status.HTTP_201_CREATED,
+    response_model=ACLs,
+)
+def create_acl(request: Request, acl: ACLs = Body(...)):
+    """_summary_
+
+    Args:
+        request (Request): _description_
+        acl (acls, optional): _description_. Defaults to Body(...).
+
+    Returns:
+        _type_: _description_
+    """
+    acl = jsonable_encoder(acl)
+    new_acl = request.app.database["ACLs"].insert_one(acl)
+    created_acl = request.app.database["ACLs"].find_one({"_id": new_acl.inserted_id})
+
+    return created_acl

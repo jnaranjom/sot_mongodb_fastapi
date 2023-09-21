@@ -288,3 +288,56 @@ class ACLsUpdate(BaseModel):
                 ],
             }
         }
+
+
+class Services(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
+    name: str = Field(...)
+    version: str = Field(...)
+    servers: list = Field(...)
+
+    class Config:
+        """_summary_"""
+
+        allow_population_by_field_name = True
+        schema_extra = {
+            "example": {
+                "version": "0.0.1",
+                "name": "ntp",
+                "servers": [
+                    {"ipv4_host": "10.0.1.7", "prefer": True},
+                    {"ipv4_host": "10.0.1.8", "prefer": False},
+                ],
+            }
+        }
+
+
+class ServicesUpdate(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
+    name: str = Field(...)
+    version: str = Field(...)
+    servers: list = Field(...)
+
+    class Config:
+        """_summary_"""
+
+        schema_extra = {
+            "example": {
+                "version": "0.0.1",
+                "name": "ntp",
+                "servers": [
+                    {"ipv4_host": "10.0.1.7", "prefer": True},
+                    {"ipv4_host": "10.0.1.8", "prefer": False},
+                ],
+            }
+        }

@@ -1,7 +1,24 @@
 """_summary_
 """
 from typing import Optional
+from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
+
+
+class PyObjectId(ObjectId):
+    @classmethod
+    def __get_validators__(cls):
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v):
+        if not ObjectId.is_valid(v):
+            raise ValueError("Invalid objectid")
+        return ObjectId(v)
+
+    @classmethod
+    def __modify_schema__(cls, field_schema):
+        field_schema.update(type="string")
 
 
 class Locations(BaseModel):
@@ -11,6 +28,7 @@ class Locations(BaseModel):
         BaseModel (_type_): _description_
     """
 
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     site: str = Field(...)
     address: str = Field(...)
     city: str = Field(...)
@@ -21,8 +39,11 @@ class Locations(BaseModel):
         """_summary_"""
 
         allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
+                "_id": "6505455c64514aee4b847469",
                 "site": "lab01",
                 "address": "1234 ABC Street",
                 "city": "Dallas",
@@ -66,6 +87,7 @@ class Devices(BaseModel):
         BaseModel (_type_): _description_
     """
 
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     vendor: str = Field(...)
     model: str = Field(...)
     ipv4_host: str = Field(...)
@@ -80,8 +102,11 @@ class Devices(BaseModel):
         """_summary_"""
 
         allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
+                "_id": "6505f1fcfb548a14a25ab11e",
                 "vendor": "cisco",
                 "model": "asr1000",
                 "os": "cisco.ios.ios",
@@ -137,6 +162,7 @@ class Fabrics(BaseModel):
         BaseModel (_type_): _description_
     """
 
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     fabric_id: str = Field(...)
     ibgp_prefix: str = Field(...)
     p2p_prefix: str = Field(...)
@@ -147,6 +173,8 @@ class Fabrics(BaseModel):
         """_summary_"""
 
         allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
                 "fabric_id": "10",
@@ -200,6 +228,7 @@ class ACLs(BaseModel):
         BaseModel (_type_): _description_
     """
 
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
     version: str = Field(...)
     entries: list = Field(...)
@@ -208,6 +237,8 @@ class ACLs(BaseModel):
         """_summary_"""
 
         allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
                 "name": "mgmt",
@@ -297,6 +328,7 @@ class Services(BaseModel):
         BaseModel (_type_): _description_
     """
 
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
     version: str = Field(...)
     servers: list = Field(...)
@@ -305,6 +337,8 @@ class Services(BaseModel):
         """_summary_"""
 
         allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
                 "version": "0.0.1",
@@ -341,3 +375,72 @@ class ServicesUpdate(BaseModel):
                 ],
             }
         }
+
+
+class Protocols(BaseModel):
+    """_summary_
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    name: str = Field(...)
+    version: str = Field(...)
+    attributes: dict = Field(...)
+    environment: str = Field(...)
+    scope: str = Field(...)
+    aggregate_networks: list = Field(default_factory=list)
+    networks: list = Field(default_factory=list)
+
+    class Config:
+        """_summary_"""
+
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        schema_extra = {
+            "example": {
+                "name": "bgp",
+                "version": "0.0.1",
+                "attributes": {
+                    "router_id": "loopback0",
+                    "vrf": "default",
+                    "log_neighbor_changes": True,
+                    "asn": "65100",
+                },
+                "environment": "dev",
+                "scope": "edge",
+                "aggregate_networks": [
+                    {"network": "10.0.0.0/8", "summary_only": "false"},
+                    {"network": "192.168.2.0/24", "summary_only": "true"},
+                ],
+                "networks": ["192.168.10.0/24", "192.168.11.0/24", "192.168.12.0/24"],
+            }
+        }
+
+
+# class ProtocolsUpdate(BaseModel):
+#     """_summary_
+
+#     Args:
+#         BaseModel (_type_): _description_
+#     """
+
+#     name: str = Field(...)
+#     version: str = Field(...)
+#     servers: list = Field(...)
+
+#     class Config:
+#         """_summary_"""
+
+#         schema_extra = {
+#             "example": {
+#                 "version": "0.0.1",
+#                 "name": "ntp",
+#                 "servers": [
+#                     {"ipv4_host": "10.0.1.7", "prefer": True},
+#                     {"ipv4_host": "10.0.1.8", "prefer": False},
+#                 ],
+#             }
+#         }

@@ -14,6 +14,7 @@ from models import (
     ACLsUpdate,
     Services,
     ServicesUpdate,
+    Protocols,
 )
 
 router = APIRouter()
@@ -220,3 +221,21 @@ def create_service(request: Request, service: Services = Body(...)):
     )
 
     return created_service
+
+
+@router.get(
+    "/protocols",
+    response_description="List all protocols",
+    response_model=List[Protocols],
+)
+def list_protocols(request: Request):
+    """_summary_
+
+    Args:
+        request (Request): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    protocols_list = list(request.app.database["Protocols"].find(limit=100))
+    return protocols_list

@@ -3,7 +3,7 @@
 all: black lint clean
 
 lint:
-	pylint *.py
+	pylint models.py main.py routes.py
 
 black:
 	black .

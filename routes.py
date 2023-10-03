@@ -5,15 +5,10 @@ from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from models import (
     Locations,
-    LocationsUpdate,
     Devices,
-    DevicesUpdate,
     Fabrics,
-    FabricsUpdate,
     ACLs,
-    ACLsUpdate,
     Services,
-    ServicesUpdate,
     Protocols,
 )
 

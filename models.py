@@ -1,27 +1,33 @@
 """_summary_
 """
 from typing import Optional
+import datetime
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
 
 
-class PyObjectId(ObjectId):
+class PyObjectId(ObjectId):  # pylint: disable=too-few-public-methods
+    """ """
+
     @classmethod
     def __get_validators__(cls):
+        """ """
         yield cls.validate
 
     @classmethod
     def validate(cls, v):
+        """ """
         if not ObjectId.is_valid(v):
             raise ValueError("Invalid objectid")
         return ObjectId(v)
 
     @classmethod
     def __modify_schema__(cls, field_schema):
+        """ """
         field_schema.update(type="string")
 
 
-class Locations(BaseModel):
+class Locations(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -34,8 +40,10 @@ class Locations(BaseModel):
     city: str = Field(...)
     state: str = Field(...)
     zip_code: str = Field(...)
+    created: datetime.datetime = datetime.datetime.now()
+    updated: datetime.datetime = datetime.datetime.now()
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         allow_population_by_field_name = True
@@ -53,9 +61,8 @@ class Locations(BaseModel):
         }
 
 
-class LocationsUpdate(BaseModel):
+class LocationsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
-
     Args:
         BaseModel (_type_): _description_
     """
@@ -66,7 +73,7 @@ class LocationsUpdate(BaseModel):
     state: Optional[str]
     zip_code: Optional[str]
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         schema_extra = {
@@ -80,7 +87,7 @@ class LocationsUpdate(BaseModel):
         }
 
 
-class Devices(BaseModel):
+class Devices(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -97,8 +104,10 @@ class Devices(BaseModel):
     os: str = Field(...)
     site: str = Field(...)
     fabric_id: str = Field(...)
+    created: datetime.datetime = datetime.datetime.now()
+    updated: datetime.datetime = datetime.datetime.now()
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         allow_population_by_field_name = True
@@ -120,7 +129,7 @@ class Devices(BaseModel):
         }
 
 
-class DevicesUpdate(BaseModel):
+class DevicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -137,7 +146,7 @@ class DevicesUpdate(BaseModel):
     site: Optional[str]
     fabric_id: Optional[str]
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         schema_extra = {
@@ -155,7 +164,7 @@ class DevicesUpdate(BaseModel):
         }
 
 
-class Fabrics(BaseModel):
+class Fabrics(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -168,8 +177,10 @@ class Fabrics(BaseModel):
     p2p_prefix: str = Field(...)
     vtep_prefix: str = Field(...)
     protocols: dict = Field(...)
+    created: datetime.datetime = datetime.datetime.now()
+    updated: datetime.datetime = datetime.datetime.now()
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         allow_population_by_field_name = True
@@ -190,7 +201,7 @@ class Fabrics(BaseModel):
         }
 
 
-class FabricsUpdate(BaseModel):
+class FabricsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -203,7 +214,7 @@ class FabricsUpdate(BaseModel):
     vtep_prefix: Optional[str]
     protocols: Optional[dict]
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         schema_extra = {
@@ -221,7 +232,7 @@ class FabricsUpdate(BaseModel):
         }
 
 
-class ACLs(BaseModel):
+class ACLs(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -232,8 +243,10 @@ class ACLs(BaseModel):
     name: str = Field(...)
     version: str = Field(...)
     entries: list = Field(...)
+    created: datetime.datetime = datetime.datetime.now()
+    updated: datetime.datetime = datetime.datetime.now()
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         allow_population_by_field_name = True
@@ -273,7 +286,7 @@ class ACLs(BaseModel):
         }
 
 
-class ACLsUpdate(BaseModel):
+class ACLsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -284,7 +297,7 @@ class ACLsUpdate(BaseModel):
     version: str = Field(...)
     entries: Optional[list]
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         schema_extra = {
@@ -321,7 +334,7 @@ class ACLsUpdate(BaseModel):
         }
 
 
-class Services(BaseModel):
+class Services(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -332,8 +345,10 @@ class Services(BaseModel):
     name: str = Field(...)
     version: str = Field(...)
     servers: list = Field(...)
+    created: datetime.datetime = datetime.datetime.now()
+    updated: datetime.datetime = datetime.datetime.now()
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         allow_population_by_field_name = True
@@ -351,7 +366,7 @@ class Services(BaseModel):
         }
 
 
-class ServicesUpdate(BaseModel):
+class ServicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -362,7 +377,7 @@ class ServicesUpdate(BaseModel):
     version: str = Field(...)
     servers: list = Field(...)
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         schema_extra = {
@@ -377,7 +392,7 @@ class ServicesUpdate(BaseModel):
         }
 
 
-class Protocols(BaseModel):
+class Protocols(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -392,8 +407,10 @@ class Protocols(BaseModel):
     scope: str = Field(...)
     aggregate_networks: list = Field(default_factory=list)
     networks: list = Field(default_factory=list)
+    created: datetime.datetime = datetime.datetime.now()
+    updated: datetime.datetime = datetime.datetime.now()
 
-    class Config:
+    class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         allow_population_by_field_name = True
@@ -431,7 +448,7 @@ class Protocols(BaseModel):
 #     version: str = Field(...)
 #     servers: list = Field(...)
 
-#     class Config:
+#     class Config:  # pylint: disable=too-few-public-methods
 #         """_summary_"""
 
 #         schema_extra = {

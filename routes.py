@@ -5,6 +5,7 @@ from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from models import (
     Locations,
+    LocationsUpdate,
     Devices,
     Fabrics,
     ACLs,
@@ -56,6 +57,49 @@ def create_location(request: Request, location: Locations = Body(...)):
     )
 
     return created_location
+
+
+@router.put(
+    "/locations/{object_id}",
+    response_description="Update a location",
+    status_code=status.HTTP_200_OK,
+    response_model=LocationsUpdate,
+)
+def update_location(
+    request: Request, object_id: str, location: LocationsUpdate = Body(...)
+):
+    """_summary_
+
+    Args:
+        request (Request): _description_
+        location (locations, optional): _description_. Defaults to Body(...).
+
+    Returns:
+        _type_: _description_
+    """
+    location = {k: v for k, v in location.dict().items() if v is not None}
+    if len(location) >= 1:
+        updated_location = request.app.database["Locations"].update_one(
+            {"_id": object_id}, {"$set": location}
+        )
+
+    return updated_location
+
+
+# @router.put("/{id}")
+# def update_location(id: str, request: LocationsUpdate = Body(...)):
+# #
+#     updated_location = update_location(id, request)
+#     if updated_location:
+#         return ResponseModel(
+#             "Location with ID: {} update is successful".format(id),
+#             "Location updated successfully",
+#         )
+#     return ErrorResponseModel(
+#         "An error occurred",
+#         404,
+#         "There was an error updating the data.",
+#     )
 
 
 @router.get(

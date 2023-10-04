@@ -72,17 +72,24 @@ class LocationsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     city: Optional[str]
     state: Optional[str]
     zip_code: Optional[str]
+    updated: Optional[str]
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        orm_mode = True
         schema_extra = {
             "example": {
+                "_id": "6505455c64514aee4b847469",
                 "site": "lab01",
                 "address": "1234 ABC Street",
                 "city": "Dallas",
                 "state": "Texas",
                 "zip_code": "75078",
+                "created": "2023-10-03T16:22:50.718911",
+                "updated": "2023-10-03T16:22:50.718911",
             }
         }
 
@@ -435,6 +442,18 @@ class Protocols(BaseModel):  # pylint: disable=too-few-public-methods
                 "networks": ["192.168.10.0/24", "192.168.11.0/24", "192.168.12.0/24"],
             }
         }
+
+
+def ResponseModel(data, message):
+    return {
+        "data": [data],
+        "code": 200,
+        "message": message,
+    }
+
+
+def ErrorResponseModel(error, code, message):
+    return {"error": error, "code": code, "message": message}
 
 
 # class ProtocolsUpdate(BaseModel):

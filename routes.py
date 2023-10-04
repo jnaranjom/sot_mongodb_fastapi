@@ -3,15 +3,12 @@
 from typing import List
 from fastapi import APIRouter, Body, Request, Response, HTTPException, status
 from fastapi.encoders import jsonable_encoder
-from models import (
-    Locations,
-    LocationsUpdate,
-    Devices,
-    Fabrics,
-    ACLs,
-    Services,
-    Protocols,
-)
+from server.models.locations import Locations, LocationsUpdate
+from server.models.devices import Devices, DevicesUpdate
+from server.models.fabrics import Fabrics, FabricsUpdate
+from server.models.acls import ACLs, ACLsUpdate
+from server.models.services import Services, ServicesUpdate
+from server.models.protocols import Protocols
 
 router = APIRouter()
 

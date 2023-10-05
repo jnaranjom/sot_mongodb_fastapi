@@ -106,7 +106,6 @@ def delete_acl(request: Request, object_id: str):
     delete_result = request.app.database["ACLs"].delete_one({"_id": object_id})
 
     if delete_result.deleted_count == 1:
-        print(delete_result)
         return delete_result
 
     raise HTTPException(status_code=404, detail=f"ACL {object_id} not found")

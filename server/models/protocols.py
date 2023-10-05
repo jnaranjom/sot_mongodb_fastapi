@@ -4,27 +4,7 @@ from typing import Optional
 import datetime
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
-
-
-class PyObjectId(ObjectId):  # pylint: disable=too-few-public-methods
-    """ """
-
-    @classmethod
-    def __get_validators__(cls):
-        """ """
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v):
-        """ """
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid objectid")
-        return ObjectId(v)
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """ """
-        field_schema.update(type="string")
+from server.utils.pyobjectid import PyObjectId
 
 
 class Protocols(BaseModel):  # pylint: disable=too-few-public-methods

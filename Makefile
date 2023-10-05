@@ -3,7 +3,7 @@
 all: black lint
 
 lint:
-	pylint main.py server/routes/*
+	pylint main.py server/models/* server/routes/*
 
 black:
 	black .

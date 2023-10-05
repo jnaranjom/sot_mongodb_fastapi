@@ -4,27 +4,7 @@ from typing import Optional
 import datetime
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
-
-
-class PyObjectId(ObjectId):  # pylint: disable=too-few-public-methods
-    """ """
-
-    @classmethod
-    def __get_validators__(cls):
-        """ """
-        yield cls.validate
-
-    @classmethod
-    def validate(cls, v):
-        """ """
-        if not ObjectId.is_valid(v):
-            raise ValueError("Invalid objectid")
-        return ObjectId(v)
-
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """ """
-        field_schema.update(type="string")
+from server.utils.pyobjectid import PyObjectId
 
 
 class Locations(BaseModel):  # pylint: disable=too-few-public-methods
@@ -40,6 +20,7 @@ class Locations(BaseModel):  # pylint: disable=too-few-public-methods
     city: str = Field(...)
     state: str = Field(...)
     zip_code: str = Field(...)
+    country: str = Field(...)
     created: datetime.datetime = datetime.datetime.now()
     updated: datetime.datetime = datetime.datetime.now()
 
@@ -51,12 +32,12 @@ class Locations(BaseModel):  # pylint: disable=too-few-public-methods
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "_id": "6505455c64514aee4b847469",
                 "site": "lab01",
                 "address": "1234 ABC Street",
                 "city": "Dallas",
                 "state": "Texas",
                 "zip_code": "75078",
+                "country": "United States",
             }
         }
 
@@ -72,6 +53,7 @@ class LocationsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     city: Optional[str]
     state: Optional[str]
     zip_code: Optional[str]
+    country: Optional[str]
     updated: Optional[str]
 
     class Config:  # pylint: disable=too-few-public-methods
@@ -82,13 +64,11 @@ class LocationsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
         orm_mode = True
         schema_extra = {
             "example": {
-                "_id": "6505455c64514aee4b847469",
                 "site": "lab01",
                 "address": "1234 ABC Street",
                 "city": "Dallas",
                 "state": "Texas",
                 "zip_code": "75078",
-                "created": "2023-10-03T16:22:50.718911",
-                "updated": "2023-10-03T16:22:50.718911",
+                "country": "United States",
             }
         }

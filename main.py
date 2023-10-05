@@ -9,6 +9,8 @@ from server.routes.fabrics import fabrics_route
 from server.routes.acls import acls_route
 from server.routes.services import services_route
 from server.routes.protocols import protocols_route
+from server.routes.interfaces import interfaces_route
+
 
 config = dotenv_values(".env")
 
@@ -20,6 +22,7 @@ app.include_router(fabrics_route, tags=["Fabrics"], prefix="/api")
 app.include_router(acls_route, tags=["ACLs"], prefix="/api")
 app.include_router(services_route, tags=["Services"], prefix="/api")
 app.include_router(protocols_route, tags=["Protocols"], prefix="/api")
+app.include_router(interfaces_route, tags=["Interfaces"], prefix="/api")
 
 
 @app.on_event("startup")

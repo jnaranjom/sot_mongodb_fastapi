@@ -64,7 +64,7 @@ The current basic data models used for this package are stored [here.](data_mode
 
 ## Running the APP
  - Clone this repo
-    - git clone git@github.com:jnaranjom/sot_mongodb_fastapi.git
+    - git clone `git@github.com:jnaranjom/sot_mongodb_fastapi.git`
     - cd sot_mongodb_fastapi
 
  - Enable venv:

@@ -70,7 +70,7 @@ The current basic data models used for this package are stored [here.](data_mode
  - Enable venv:
     - source venv/bin/activate
 
- - Start the application: `python -m uvicorn main:app --host <your-server-ip> --reload``
+ - Start the application: `python -m uvicorn main:app --host <your-server-ip> --reload`
 
 ## Validate Access to the API
 

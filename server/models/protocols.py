@@ -72,27 +72,27 @@ class Protocols(BaseModel):  # pylint: disable=too-few-public-methods
         }
 
 
-# class ProtocolsUpdate(BaseModel):
-#     """_summary_
+class ProtocolsUpdate(BaseModel):
+    """_summary_
 
-#     Args:
-#         BaseModel (_type_): _description_
-#     """
+    Args:
+        BaseModel (_type_): _description_
+    """
 
-#     name: str = Field(...)
-#     version: str = Field(...)
-#     servers: list = Field(...)
+    name: str = Field(...)
+    version: str = Field(...)
+    servers: list = Field(...)
 
-#     class Config:  # pylint: disable=too-few-public-methods
-#         """_summary_"""
+    class Config:  # pylint: disable=too-few-public-methods
+        """_summary_"""
 
-#         schema_extra = {
-#             "example": {
-#                 "version": "0.0.1",
-#                 "name": "ntp",
-#                 "servers": [
-#                     {"ipv4_host": "10.0.1.7", "prefer": True},
-#                     {"ipv4_host": "10.0.1.8", "prefer": False},
-#                 ],
-#             }
-#         }
+        schema_extra = {
+            "example": {
+                "version": "0.0.1",
+                "name": "ntp",
+                "servers": [
+                    {"ipv4_host": "10.0.1.7", "prefer": True},
+                    {"ipv4_host": "10.0.1.8", "prefer": False},
+                ],
+            }
+        }

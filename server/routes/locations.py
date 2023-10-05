@@ -1,7 +1,9 @@
+"""
+    Locations Routes
+"""
 from typing import List
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
-from fastapi import APIRouter, Body, Request, Response, HTTPException, status
+from fastapi import APIRouter, Body, Request, HTTPException, status
 from server.models.locations import Locations, LocationsUpdate
 
 locations_route = APIRouter()
@@ -31,7 +33,14 @@ def list_locations(request: Request):
     response_model=Locations,
 )
 def get_location(request: Request, object_id: str):
-    """ """
+    """_summary_
+
+    Args:
+        request (Request): _description_
+
+    Returns:
+        _type_: _description_
+    """
     if (
         location := request.app.database["Locations"].find_one({"_id": object_id})
     ) is not None:

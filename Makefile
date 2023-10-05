@@ -1,9 +1,9 @@
 .PHONY: all
 
-all: black lint clean
+all: black lint
 
 lint:
-	pylint main.py routes.py
+	pylint main.py server/routes/*
 
 black:
 	black .

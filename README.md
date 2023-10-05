@@ -24,7 +24,13 @@ See the documentation for [FastAPI](https://fastapi.tiangolo.com/)
 
 ### Data Models
 
-The most relevant component on this solution are the data models. The models are the representation of the network elements and configuration objects. Since MongoDB provides the functionality to store the Data Models than can be included
+The most relevant component on this solution are the data models. The models are the representation of the network elements and configuration objects. Since MongoDB provides the functionality to store the Data Models, these can be retrieved in JSON format and injected directly into the automation tools for deployment on network devices. See some additional details abotu data models:
+
+- https://www.educative.io/answers/what-are-data-models-in-network-automation
+- https://blog.networktocode.com/post/data-modeling-for-network-engineers/
+- https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/16-5/configuration_guide/prog/b_165_prog_9500_cg/data_models.pdf
+
+The current basic data models used for this package are stored [here](data_models/)
 
 ## Deployment
 

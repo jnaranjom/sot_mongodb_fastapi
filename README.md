@@ -63,5 +63,16 @@ The current basic data models used for this package are stored [here.](data_mode
     - Install MongoDB Compass on a separate machine to have visualization of the Database
 
 ## Running the APP
- - Enable venv
- - Start the application: `python -m uvicorn main:app --reload`
+ - Clone this repo
+    - git clone git@github.com:jnaranjom/sot_mongodb_fastapi.git
+    - cd sot_mongodb_fastapi
+
+ - Enable venv:
+    - source venv/bin/activate
+
+ - Start the application: python -m uvicorn main:app --host `your-server-ip` --reload
+
+## Validate Access to the API
+
+ - Open a browser and go to http://`your-server-ip`:8000/docs to see the API documentation
+ - Go to http://`your-server-ip`:8000/api/devices to see the list of devices

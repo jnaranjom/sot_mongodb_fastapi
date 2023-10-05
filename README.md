@@ -30,17 +30,37 @@ The most relevant component on this solution are the data models. The models are
 - https://blog.networktocode.com/post/data-modeling-for-network-engineers/
 - https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9500/software/release/16-5/configuration_guide/prog/b_165_prog_9500_cg/data_models.pdf
 
-The current basic data models used for this package are stored [here](data_models/)
+The current basic data models used for this package are stored [here.](data_models/)
 
-## Deployment
+#### Data model considerations
 
- - Create venv
- - Install requirements
- - Create .env file with secrects
+1. Defining a proper set of data models that cover most of the use cases is key to develop a solution that can be extensible, reusable and easy to use.
+2. The data models desgined should match the corresponding model defined in the FastAPI application (within the server/models files) so the CRUD operations against the Network SoT can be executed.
+3. The FastAPI BaseModel Class provide the method for the CRUD operations, the data model created for the objects (in MongoDB) or from the Network Infrastructure must be defined within the Classes so FastAPI can the perform the required operations.
+
+## Deploying the application
+
+### Create MongoDB Cloud Atlas Account
+
  - Create MongoDB Atlas account
- - Create Test DB in MongoDB Atlas:
+ - Create Test DB (network_inventory) in MongoDB Atlas:
     - Create user and resource permissions
-    - Retrieve MongoDB connection link
+    - Retrieve MongoDB connection link and credentials
+
+### Server deployment
+
+ - Create Python venv
+    - Update the virtual environment via pip
+ - Install requirements
+    - pip install -r requirements.txt
+ - Create .env file with the DB connection link secrects as documented here:
+
+    ```shell
+        ATLAS_URI=mongodb+srv://username:password@cluster0.gguf6wf.mongodb.net/?retryWrites=true&w=majority
+        DB_NAME=network_inventory
+    ```
+    *Update the URL as provided by the Cloud Atlas tool*
+    - Install MongoDB Compass on a separate machine to have visualization of the Database
 
 ## Running the APP
  - Enable venv

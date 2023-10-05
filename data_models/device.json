@@ -1,0 +1,14 @@
+{
+    "vendor": "cisco",
+    "model": "csr",
+    "ipv4_host": "192.168.2.240/24",
+    "hostname": "edge01",
+    "role": {
+      "name": "edge",
+      "id": "01"
+    },
+    "asset_class": "ip_router",
+    "os": "cisco.ios.ios",
+    "site": "lab01",
+    "fabric_id": ""
+  }

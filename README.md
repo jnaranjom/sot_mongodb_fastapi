@@ -34,7 +34,7 @@ The current basic data models used for this package are stored [here.](data_mode
 
 #### Data model considerations
 
-1. Defining a proper set of data models that cover most of the use cases is key to develop a solution that can be extensible, reusable and easy to use.
+1. Defining a proper set of data models that cover most of the use cases is key to develop a solution that can be extensible, reusable and easy to maintain.
 2. The data models desgined should match the corresponding model defined in the FastAPI application (within the server/models files) so the CRUD operations against the Network SoT can be executed.
 3. The FastAPI BaseModel Class provide the method for the CRUD operations, the data model created for the objects (in MongoDB) or from the Network Infrastructure must be defined within the Classes so FastAPI can the perform the required operations.
 

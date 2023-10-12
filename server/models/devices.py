@@ -1,7 +1,7 @@
 """_summary_
 """
 from typing import Optional
-import datetime
+from datetime import datetime
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
 from server.utils.pyobjectid import PyObjectId
@@ -26,14 +26,9 @@ class Devices(BaseModel):  # pylint: disable=too-few-public-methods
     environment: str = Field(...)
     type: str = Field(...)
     os: str = Field(...)
-    locations: list = Field(default_factory=list)
-    fabric_id: str = Field(...)
-    services: list = Field(default_factory=list)
-    protocols: list = Field(default_factory=list)
-    interfaces: list = Field(default_factory=list)
-    acls: list = Field(default_factory=list)
-    created: datetime.datetime = datetime.datetime.now()
-    updated: datetime.datetime = datetime.datetime.now()
+    attributes: dict = Field(...)
+    created: datetime = Field(datetime.now())
+    updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
@@ -43,10 +38,11 @@ class Devices(BaseModel):  # pylint: disable=too-few-public-methods
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
+                "_id": {"$oid": "652467f7c61673db1752d433"},
                 "vendor": "cisco",
                 "model": "csr1000v",
                 "serial_number": "ABCDEFGHI",
-                "ipv4_host": "192.168.2.240/24",
+                "ipv4_host": "192.168.2.50/24",
                 "hostname": "edge01",
                 "role": {"name": "edge", "id": "01"},
                 "asset_class": "ip_router",
@@ -54,14 +50,24 @@ class Devices(BaseModel):  # pylint: disable=too-few-public-methods
                 "environment": "dev",
                 "type": "virtual",
                 "os": "cisco.ios.ios",
-                "locations": [{"name": "site01", "id": "6510edf5c427b184028d642c"}],
-                "fabric_id": "",
-                "services": [{"name": "ntp", "id": "651c457435114b4d8239473c"}],
-                "protocols": [{"name": "bgp", "id": "6510edf5c427b184028d642b"}],
-                "interfaces": [
-                    {"name": "lab01-edge01", "id": "6510edf5c427b184028d642b"}
-                ],
-                "acls": [{"name": "mgmt", "id": "6510edf5c427b184028d642c"}],
+                "attributes": {
+                    "services": [
+                        {"name": "ntp", "id": "651c457435114b4d8239473c"},
+                        {"name": "dns", "id": "6524698848f3fe822fcd6616"},
+                    ],
+                    "acls": [{"name": "mgmt", "id": "651c443104e4fff54121780f"}],
+                    "protocols": [
+                        {"name": "ospf", "id": "651f8855a5e098e62533d597"},
+                        {"name": "bgp", "id": "651f32f55f35cb3f3da188cd"},
+                    ],
+                    "locations": [{"name": "lab01", "id": "651ed9c9036ed8004b7c0c34"}],
+                    "interfaces": [
+                        {"name": "interfaces", "id": "65246eeec61673db1752d435"}
+                    ],
+                    "bgp_neighbors": [
+                        {"name": "ISP01", "id": "652470e8c61673db1752d438"}
+                    ],
+                },
             }
         }
 
@@ -83,23 +89,24 @@ class DevicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     asset_id: Optional[str]
     environment: Optional[str]
     type: Optional[str]
-    locations: Optional[list]
     os: Optional[str]
-    fabric_id: Optional[str]
-    services: Optional[list]
-    protocols: Optional[list]
-    interfaces: Optional[list]
-    acls: Optional[list]
+    attributes: Optional[dict]
+    updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        orm_mode = True
         schema_extra = {
             "example": {
+                "_id": {"$oid": "652467f7c61673db1752d433"},
                 "vendor": "cisco",
                 "model": "csr1000v",
                 "serial_number": "ABCDEFGHI",
-                "ipv4_host": "192.168.2.240/24",
+                "ipv4_host": "192.168.2.50/24",
                 "hostname": "edge01",
                 "role": {"name": "edge", "id": "01"},
                 "asset_class": "ip_router",
@@ -107,13 +114,23 @@ class DevicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
                 "environment": "dev",
                 "type": "virtual",
                 "os": "cisco.ios.ios",
-                "location": {"name": "site01", "id": "6510edf5c427b184028d642c"},
-                "fabric_id": "",
-                "services": [{"name": "ntp", "id": "651c457435114b4d8239473c"}],
-                "protocols": [{"name": "bgp", "id": "6510edf5c427b184028d642b"}],
-                "interfaces": [
-                    {"name": "lab01-edge01", "id": "6510edf5c427b184028d642b"}
-                ],
-                "acls": [{"name": "mgmt", "id": "6510edf5c427b184028d642c"}],
+                "attributes": {
+                    "services": [
+                        {"name": "ntp", "id": "651c457435114b4d8239473c"},
+                        {"name": "dns", "id": "6524698848f3fe822fcd6616"},
+                    ],
+                    "acls": [{"name": "mgmt", "id": "651c443104e4fff54121780f"}],
+                    "protocols": [
+                        {"name": "ospf", "id": "651f8855a5e098e62533d597"},
+                        {"name": "bgp", "id": "651f32f55f35cb3f3da188cd"},
+                    ],
+                    "locations": [{"name": "lab01", "id": "651ed9c9036ed8004b7c0c34"}],
+                    "interfaces": [
+                        {"name": "interfaces", "id": "65246eeec61673db1752d435"}
+                    ],
+                    "bgp_neighbors": [
+                        {"name": "ISP01", "id": "652470e8c61673db1752d438"}
+                    ],
+                },
             }
         }

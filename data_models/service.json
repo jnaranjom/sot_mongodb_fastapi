@@ -1,14 +1,14 @@
 {
-    "name": "ntp",
-    "version": "0.0.1",
-    "servers": [
-      {
-        "ipv4_host": "10.0.1.7",
-        "prefer": true
-      },
-      {
-        "ipv4_host": "10.0.1.8",
-        "prefer": false
-      }
-    ]
-  }
+  "name": "ntp",
+  "version": "0.0.1",
+  "servers": [
+    {
+      "ipv4_host": "10.0.1.7",
+      "prefer": true
+    },
+    {
+      "ipv4_host": "10.0.1.8",
+      "prefer": false
+    }
+  ]
+}

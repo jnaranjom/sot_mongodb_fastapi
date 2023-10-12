@@ -1,27 +1,46 @@
-{
-  "name": "bgp",
-  "version": "0.0.1",
-  "attributes": {
-    "router_id": "loopback0",
-    "vrf": "default",
-    "log_neighbor_changes": true,
-    "asn": "65100"
-  },
-  "environment": "dev",
-  "scope": "edge",
-  "aggregate_networks": [
-    {
-      "network": "10.0.0.0/8",
-      "summary_only": "false"
+[
+  {
+    "name": "bgp",
+    "version": "0.0.1",
+    "attributes": {
+      "router_id": "loopback0",
+      "vrf": "default",
+      "log_neighbor_changes": true,
+      "asn": "65100"
     },
-    {
-      "network": "192.168.2.0/24",
-      "summary_only": "true"
-    }
-  ],
-  "networks": [
-    "192.168.10.0/24",
-    "192.168.11.0/24",
-    "192.168.12.0/24"
-  ]
-}
+    "environment": "dev",
+    "scope": "edge",
+    "aggregate_networks": [
+      {
+        "network": "10.0.0.0/8",
+        "summary_only": "false"
+      },
+      {
+        "network": "192.168.2.0/24",
+        "summary_only": "true"
+      }
+    ],
+    "networks": [
+      "192.168.10.0/24",
+      "192.168.11.0/24",
+      "192.168.12.0/24"
+    ]
+  },
+  {
+    "_id": "651f8855a5e098e62533d597",
+    "name": "ospf",
+    "version": "0.0.1",
+    "attributes": {
+      "router_id": "loopback0",
+      "process_id": "1",
+      "area": "0",
+      "vrf": "default"
+    },
+    "environment": "dev",
+    "scope": "core",
+    "aggregate_networks": [],
+    "networks": [],
+    "created": "2023-10-06T03:28:50.840787",
+    "updated": "2023-10-06T03:28:50.840793"
+  }
+]

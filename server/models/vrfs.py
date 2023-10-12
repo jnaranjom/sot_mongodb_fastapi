@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from server.utils.pyobjectid import PyObjectId
 
 
-class Services(BaseModel):  # pylint: disable=too-few-public-methods
+class VRFs(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -17,7 +17,11 @@ class Services(BaseModel):  # pylint: disable=too-few-public-methods
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
     version: str = Field(...)
-    servers: list = Field(...)
+    export_route_policy: str = Field(...)
+    export_rt: str = Field(...)
+    import_route_policy: str = Field(...)
+    import_rt: str = Field(...)
+    rd: str = Field(...)
     created: datetime = Field(datetime.now())
     updated: datetime = Field(datetime.now())
 
@@ -29,17 +33,18 @@ class Services(BaseModel):  # pylint: disable=too-few-public-methods
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
+                "export_route_policy": "null",
+                "export_rt": "100:100",
+                "import_route_policy": "null",
+                "import_rt": "100:100",
+                "name": "CUST1_VRF",
                 "version": "0.0.1",
-                "name": "ntp",
-                "servers": [
-                    {"ipv4_host": "10.0.1.7", "prefer": True},
-                    {"ipv4_host": "10.0.1.8", "prefer": False},
-                ],
+                "rd": "100:100",
             }
         }
 
 
-class ServicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
+class VRFsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -48,7 +53,11 @@ class ServicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
 
     name: Optional[str]
     version: Optional[str]
-    servers: Optional[list]
+    export_route_policy: str = Field(...)
+    export_rt: str = Field(...)
+    import_route_policy: str = Field(...)
+    import_rt: str = Field(...)
+    rd: str = Field(...)
     updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
@@ -60,11 +69,12 @@ class ServicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
         orm_mode = True
         schema_extra = {
             "example": {
+                "export_route_policy": "null",
+                "export_rt": "100:100",
+                "import_route_policy": "null",
+                "import_rt": "100:100",
+                "name": "CUST1_VRF",
                 "version": "0.0.1",
-                "name": "ntp",
-                "servers": [
-                    {"ipv4_host": "10.0.1.7", "prefer": True},
-                    {"ipv4_host": "10.0.1.8", "prefer": False},
-                ],
+                "rd": "100:100",
             }
         }

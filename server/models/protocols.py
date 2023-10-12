@@ -1,7 +1,7 @@
 """_summary_
 """
 from typing import Optional
-import datetime
+from datetime import datetime
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
 from server.utils.pyobjectid import PyObjectId
@@ -20,10 +20,8 @@ class Protocols(BaseModel):  # pylint: disable=too-few-public-methods
     attributes: dict = Field(...)
     environment: str = Field(...)
     scope: str = Field(...)
-    aggregate_networks: list = Field(default_factory=list)
-    networks: list = Field(default_factory=list)
-    created: datetime.datetime = datetime.datetime.now()
-    updated: datetime.datetime = datetime.datetime.now()
+    created: datetime = Field(datetime.now())
+    updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
@@ -40,14 +38,18 @@ class Protocols(BaseModel):  # pylint: disable=too-few-public-methods
                     "vrf": "default",
                     "log_neighbor_changes": True,
                     "asn": "65100",
+                    "aggregate_networks": [
+                        {"network": "10.0.0.0/8", "summary_only": "false"},
+                        {"network": "192.168.2.0/24", "summary_only": "true"},
+                    ],
+                    "networks": [
+                        "192.168.10.0/24",
+                        "192.168.11.0/24",
+                        "192.168.12.0/24",
+                    ],
                 },
                 "environment": "dev",
                 "scope": "edge",
-                "aggregate_networks": [
-                    {"network": "10.0.0.0/8", "summary_only": "false"},
-                    {"network": "192.168.2.0/24", "summary_only": "true"},
-                ],
-                "networks": ["192.168.10.0/24", "192.168.11.0/24", "192.168.12.0/24"],
             }
         }
 
@@ -59,13 +61,20 @@ class ProtocolsUpdate(BaseModel):
         BaseModel (_type_): _description_
     """
 
-    name: str = Field(...)
-    version: str = Field(...)
-    servers: list = Field(...)
+    name: Optional[str]
+    version: Optional[str]
+    attributes: Optional[str]
+    environment: Optional[str]
+    scope: Optional[str]
+    updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        orm_mode = True
         schema_extra = {
             "example": {
                 "version": "0.0.1",

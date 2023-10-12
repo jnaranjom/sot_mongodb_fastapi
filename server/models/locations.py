@@ -1,7 +1,7 @@
 """_summary_
 """
 from typing import Optional
-import datetime
+from datetime import datetime
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
 from server.utils.pyobjectid import PyObjectId
@@ -21,8 +21,8 @@ class Locations(BaseModel):  # pylint: disable=too-few-public-methods
     state: str = Field(...)
     zip_code: str = Field(...)
     country: str = Field(...)
-    created: datetime.datetime = datetime.datetime.now()
-    updated: datetime.datetime = datetime.datetime.now()
+    created: datetime = Field(datetime.now())
+    updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
@@ -54,11 +54,12 @@ class LocationsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     state: Optional[str]
     zip_code: Optional[str]
     country: Optional[str]
-    updated: Optional[str]
+    updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
+        allow_population_by_field_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
         orm_mode = True

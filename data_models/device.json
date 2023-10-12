@@ -1,22 +1,45 @@
 {
-    "vendor": "cisco",
-    "model": "csr1000v",
-    "serial_number": "ABCDEFGHI",
-    "ipv4_host": "192.168.2.240/24",
-    "hostname": "edge01",
-    "role": {
-      "name": "edge",
-      "id": "01"
-    },
-    "asset_class": "ip_router",
-    "asset_id": "123456",
-    "environment": "dev",
-    "type": "virtual",
-    "os": "cisco.ios.ios",
-    "location": {"name": "site01", "id": "6510edf5c427b184028d642c"},
-    "fabric_id": "",
-    "services": [{"name": "ntp", "id": "651c457435114b4d8239473c"}],
-    "protocols": [{"name": "bgp", "id": "6510edf5c427b184028d642b"}],
-    "interfaces": [{"name": "lab01-edge01", "id": "651f15c96b47214e6c1b3f25"}],
-    "acls": [{"name": "mgmt", "id": "651c443104e4fff54121780f"}]
-  }
+  "vendor": "cisco",
+  "model": "csr1000v",
+  "serial_number": "ABCDEFGHI",
+  "ipv4_host": "192.168.2.240/24",
+  "hostname": "edge01",
+  "role": {
+    "name": "edge",
+    "id": "01"
+  },
+  "asset_class": "ip_router",
+  "asset_id": "123456",
+  "environment": "dev",
+  "type": "virtual",
+  "os": "cisco.ios.ios",
+  "location": {
+    "name": "site01",
+    "id": "6510edf5c427b184028d642c"
+  },
+  "fabric_id": "",
+  "services": [
+    {
+      "name": "ntp",
+      "id": "651c457435114b4d8239473c"
+    }
+  ],
+  "protocols": [
+    {
+      "name": "bgp",
+      "id": "6510edf5c427b184028d642b"
+    }
+  ],
+  "interfaces": [
+    {
+      "name": "lab01-edge01",
+      "id": "651f15c96b47214e6c1b3f25"
+    }
+  ],
+  "acls": [
+    {
+      "name": "mgmt",
+      "id": "651c443104e4fff54121780f"
+    }
+  ]
+}

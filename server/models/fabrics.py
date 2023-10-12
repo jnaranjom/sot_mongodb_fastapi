@@ -1,7 +1,7 @@
 """_summary_
 """
 from typing import Optional
-import datetime
+from datetime import datetime
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
 from server.utils.pyobjectid import PyObjectId
@@ -20,8 +20,8 @@ class Fabrics(BaseModel):  # pylint: disable=too-few-public-methods
     p2p_prefix: str = Field(...)
     vtep_prefix: str = Field(...)
     protocols: dict = Field(...)
-    created: datetime.datetime = datetime.datetime.now()
-    updated: datetime.datetime = datetime.datetime.now()
+    created: datetime = Field(datetime.now())
+    updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
@@ -56,10 +56,15 @@ class FabricsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     p2p_prefix: Optional[str]
     vtep_prefix: Optional[str]
     protocols: Optional[dict]
+    updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        orm_mode = True
         schema_extra = {
             "example": {
                 "fabric_id": "10",

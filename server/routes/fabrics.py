@@ -1,5 +1,5 @@
 """
-   Fabrics Routes
+    Fabrics Routes
 """
 from typing import List
 from fastapi.encoders import jsonable_encoder
@@ -32,14 +32,14 @@ def list_fabrics(request: Request):
     response_description="Get a single fabric",
     response_model=Fabrics,
 )
-def get_fabric(request: Request, object_id: str):
-    """ """
+def get_fabric_by_id(request: Request, object_id: str):
+    """Function to retrieve a single fabric from MongoDB"""
     if (
         fabric := request.app.database["Fabrics"].find_one({"_id": object_id})
     ) is not None:
         return fabric
 
-    raise HTTPException(status_code=404, detail=f"fabric {object_id} not found")
+    raise HTTPException(status_code=404, detail=f"Device {object_id} not found")
 
 
 @fabrics_route.post(
@@ -113,4 +113,4 @@ def delete_fabric(request: Request, object_id: str):
         print(delete_result)
         return delete_result
 
-    raise HTTPException(status_code=404, detail=f"fabric {object_id} not found")
+    raise HTTPException(status_code=404, detail=f"Fabric {object_id} not found")

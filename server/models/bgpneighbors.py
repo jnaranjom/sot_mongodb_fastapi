@@ -15,7 +15,7 @@ class BgpNeighbors(BaseModel):  # pylint: disable=too-few-public-methods
     """
 
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str = Field(...)
+    hostname: str = Field(...)
     version: str = Field(...)
     neighbors: list = Field(...)
     created: datetime = Field(datetime.now())
@@ -24,12 +24,12 @@ class BgpNeighbors(BaseModel):  # pylint: disable=too-few-public-methods
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
-        allow_population_by_field_name = True
+        allow_population_by_field_hostname = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "name": "lab01-pe01",
+                "hostname": "lab01-pe01",
                 "version": "0.0.2",
                 "neighbors": [
                     {
@@ -60,7 +60,7 @@ class BgpNeighborsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
         BaseModel (_type_): _description_
     """
 
-    name: Optional[str]
+    hostname: Optional[str]
     version: Optional[str]
     neighbors: Optional[list]
     updated: datetime = Field(datetime.now())
@@ -68,13 +68,13 @@ class BgpNeighborsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     class Config:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
-        allow_population_by_field_name = True
+        allow_population_by_field_hostname = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
         orm_mode = True
         schema_extra = {
             "example": {
-                "name": "lab01-pe01",
+                "hostname": "lab01-pe01",
                 "version": "0.0.2",
                 "neighbors": [
                     {

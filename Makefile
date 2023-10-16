@@ -8,5 +8,8 @@ lint:
 black:
 	black .
 
+flake8:
+   flake8 .
+
 # setup:
 # 	source /home/sot_server/sot_venv/bin/activate

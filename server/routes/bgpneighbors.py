@@ -26,10 +26,10 @@ def list_bgpneighbors(request: Request):
 
 @bgpneighbors_route.get(
     "/bgpneighbors/{object_id}",
-    response_description="Get a single bgpneighbor",
+    response_description="Get BGP neighbors by Id",
     response_model=BgpNeighbors,
 )
-def get_bgpneighbor(request: Request, object_id: str):
+def get_bgpneighbor_by_id(request: Request, object_id: str):
     """ """
     if (
         bgpneighbor := request.app.database["BgpNeighbors"].find_one({"_id": object_id})

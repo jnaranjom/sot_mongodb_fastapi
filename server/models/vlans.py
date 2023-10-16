@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from server.utils.pyobjectid import PyObjectId
 
 
-class Fabrics(BaseModel):  # pylint: disable=too-few-public-methods
+class Vlans(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -16,9 +16,9 @@ class Fabrics(BaseModel):  # pylint: disable=too-few-public-methods
 
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
-    attributes: list = Field(default_factory=list)
-    fabric_id: str = Field(...)
     version: str = Field(...)
+    scope: str = Field(...)
+    vlans: list = Field(default_factory=list)
     created: datetime = Field(datetime.now())
     updated: datetime = Field(datetime.now())
 
@@ -30,18 +30,18 @@ class Fabrics(BaseModel):  # pylint: disable=too-few-public-methods
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "name": "fabric_10",
-                "attributes": [
-                    {"prefix": "10.10.0.0/24", "name": "ibgp"},
-                    {"prefix": "10.10.1.0/24", "name": "mgmt"},
-                ],
-                "fabric_id": "10",
+                "name": "access vlans",
                 "version": "0.0.1",
+                "scope": "access",
+                "vlans": [
+                    {"name": "voice", "vlan_id": "10", "vni_id": "null"},
+                    {"name": "multicast", "vlan_id": "20", "vni_id": "null"},
+                ],
             }
         }
 
 
-class FabricsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
+class VlansUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """_summary_
 
     Args:
@@ -49,9 +49,9 @@ class FabricsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """
 
     name: str = Field(...)
-    attributes: list = Field(default_factory=list)
-    fabric_id: str = Field(...)
     version: str = Field(...)
+    scope: str = Field(...)
+    vlans: list = Field(default_factory=list)
     updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
@@ -63,12 +63,12 @@ class FabricsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
         orm_mode = True
         schema_extra = {
             "example": {
-                "name": "fabric_10",
-                "attributes": [
-                    {"prefix": "10.10.0.0/24", "name": "ibgp"},
-                    {"prefix": "10.10.1.0/24", "name": "mgmt"},
-                ],
-                "fabric_id": "10",
+                "name": "access vlans",
                 "version": "0.0.1",
+                "scope": "access",
+                "vlans": [
+                    {"name": "voice", "vlan_id": "10", "vni_id": "null"},
+                    {"name": "multicast", "vlan_id": "20", "vni_id": "null"},
+                ],
             }
         }

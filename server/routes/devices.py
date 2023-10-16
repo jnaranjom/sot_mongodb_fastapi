@@ -32,7 +32,7 @@ def list_devices(request: Request):
     response_description="Get a single device",
     response_model=Devices,
 )
-def get_device(request: Request, object_id: str):
+def get_device_by_id(request: Request, object_id: str):
     """Function to retrieve a single device from MongoDB"""
     if (
         device := request.app.database["Devices"].find_one({"_id": object_id})

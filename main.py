@@ -12,6 +12,7 @@ from server.routes.protocols import protocols_route
 from server.routes.interfaces import interfaces_route
 from server.routes.bgpneighbors import bgpneighbors_route
 from server.routes.vrfs import vrfs_route
+from server.routes.vlans import vlans_route
 
 
 config = dotenv_values(".env")
@@ -27,6 +28,7 @@ app.include_router(protocols_route, tags=["Protocols"], prefix="/api")
 app.include_router(interfaces_route, tags=["Interfaces"], prefix="/api")
 app.include_router(bgpneighbors_route, tags=["BGP Neighbors"], prefix="/api")
 app.include_router(vrfs_route, tags=["VRFs"], prefix="/api")
+app.include_router(vlans_route, tags=["VLANs"], prefix="/api")
 
 
 @app.on_event("startup")

@@ -73,7 +73,9 @@ def create_prefixlist(request: Request, prefixlist: Prefixlists = Body(...)):
     status_code=status.HTTP_200_OK,
     response_model=PrefixlistsUpdate,
 )
-def update_prefixlist(request: Request, object_id: str, prefixlist: PrefixlistsUpdate = Body(...)):
+def update_prefixlist(
+    request: Request, object_id: str, prefixlist: PrefixlistsUpdate = Body(...)
+):
     """_summary_
 
     Args:

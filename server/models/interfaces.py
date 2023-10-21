@@ -15,7 +15,7 @@ class Interfaces(BaseModel):  # pylint: disable=too-few-public-methods
     """
 
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str = Field(...)
+    hostname: str = Field(...)
     version: str = Field(...)
     interfaces: list = Field(default_factory=list)
     created: datetime = Field(datetime.now())
@@ -29,7 +29,7 @@ class Interfaces(BaseModel):  # pylint: disable=too-few-public-methods
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "name": "lab01-edge01",
+                "hostname": "lab01-edge01",
                 "version": "0.0.2",
                 "interfaces": [
                     {
@@ -67,7 +67,7 @@ class InterfacesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
         BaseModel (_type_): _description_
     """
 
-    name: Optional[str]
+    hostname: Optional[str]
     version: Optional[str]
     interfaces: Optional[list]
     updated: datetime = Field(datetime.now())
@@ -81,7 +81,7 @@ class InterfacesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
         orm_mode = True
         schema_extra = {
             "example": {
-                "name": "lab01-edge01",
+                "hostname": "lab01-edge01",
                 "version": "0.0.2",
                 "interfaces": [
                     {

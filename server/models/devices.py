@@ -17,6 +17,7 @@ class Devices(BaseModel):  # pylint: disable=too-few-public-methods
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     vendor: str = Field(...)
     model: str = Field(...)
+    status: str = Field(...)
     serial_number: str = Field(...)
     ipv4_host: str = Field(...)
     hostname: str = Field(...)
@@ -41,6 +42,7 @@ class Devices(BaseModel):  # pylint: disable=too-few-public-methods
                 "_id": {"$oid": "652467f7c61673db1752d433"},
                 "vendor": "cisco",
                 "model": "csr1000v",
+                "status": "stage",
                 "serial_number": "ABCDEFGHI",
                 "ipv4_host": "192.168.2.50/24",
                 "hostname": "edge01",
@@ -81,6 +83,7 @@ class DevicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
 
     vendor: Optional[str]
     model: Optional[str]
+    status: Optional[str]
     serial_number: Optional[str]
     ipv4_host: Optional[str]
     hostname: Optional[str]
@@ -105,6 +108,7 @@ class DevicesUpdate(BaseModel):  # pylint: disable=too-few-public-methods
                 "_id": {"$oid": "652467f7c61673db1752d433"},
                 "vendor": "cisco",
                 "model": "csr1000v",
+                "status": "stage",
                 "serial_number": "ABCDEFGHI",
                 "ipv4_host": "192.168.2.50/24",
                 "hostname": "edge01",

@@ -27,6 +27,34 @@ def list_devices(request: Request):
     return devices_list
 
 
+def list_devices(request: Request):
+    """_summary_
+
+    Args:
+        request (Request): _description_
+
+    Returns:
+        _type_: _description_
+    """
+    devices_list = list(request.app.database["Devices"].find(limit=100))
+    return devices_list
+
+
+@devices_route.get(
+    "/devices/hostname/{hostname}",
+    response_description="Get a single device",
+    response_model=Devices,
+)
+def get_device_by_name(request: Request, hostname: str):
+    """Function to retrieve a single device from MongoDB"""
+    if (
+        device := request.app.database["Devices"].find_one({"hostname": hostname})
+    ) is not None:
+        return device
+
+    raise HTTPException(status_code=404, detail=f"Device {hostname} not found")
+
+
 @devices_route.get(
     "/devices/{object_id}",
     response_description="Get a single device",

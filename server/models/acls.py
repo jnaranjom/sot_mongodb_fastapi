@@ -69,7 +69,7 @@ class ACLsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """
 
     name: Optional[str]
-    version: str = Field(...)
+    version: Optional[str]
     entries: Optional[list]
     updated: datetime = Field(datetime.now())
 

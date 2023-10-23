@@ -21,6 +21,7 @@ class Locations(BaseModel):  # pylint: disable=too-few-public-methods
     state: str = Field(...)
     zip_code: str = Field(...)
     country: str = Field(...)
+    attributes: dict = Field(...)
     created: datetime = Field(datetime.now())
     updated: datetime = Field(datetime.now())
 
@@ -54,6 +55,7 @@ class LocationsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     state: Optional[str]
     zip_code: Optional[str]
     country: Optional[str]
+    attributes: Optional[dict]
     updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods

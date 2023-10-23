@@ -15,10 +15,11 @@ class Vlans(BaseModel):  # pylint: disable=too-few-public-methods
     """
 
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    name: str = Field(...)
     version: str = Field(...)
     scope: str = Field(...)
-    vlans: list = Field(default_factory=list)
+    name: str = Field(...)
+    vlan_id: str = Field(...)
+    vni_id: str = Field(...)
     created: datetime = Field(datetime.now())
     updated: datetime = Field(datetime.now())
 
@@ -30,13 +31,11 @@ class Vlans(BaseModel):  # pylint: disable=too-few-public-methods
         json_encoders = {ObjectId: str}
         schema_extra = {
             "example": {
-                "name": "access vlans",
                 "version": "0.0.1",
                 "scope": "access",
-                "vlans": [
-                    {"name": "voice", "vlan_id": "10", "vni_id": "null"},
-                    {"name": "multicast", "vlan_id": "20", "vni_id": "null"},
-                ],
+                "name": "voice",
+                "vlan_id": "10",
+                "vni_id": "null",
             }
         }
 
@@ -48,10 +47,11 @@ class VlansUpdate(BaseModel):  # pylint: disable=too-few-public-methods
         BaseModel (_type_): _description_
     """
 
-    name: str = Field(...)
-    version: str = Field(...)
-    scope: str = Field(...)
-    vlans: list = Field(default_factory=list)
+    version: Optional[str]
+    scope: Optional[str]
+    name: Optional[str]
+    vlan_id: Optional[str]
+    vni_id: Optional[str]
     updated: datetime = Field(datetime.now())
 
     class Config:  # pylint: disable=too-few-public-methods
@@ -63,12 +63,10 @@ class VlansUpdate(BaseModel):  # pylint: disable=too-few-public-methods
         orm_mode = True
         schema_extra = {
             "example": {
-                "name": "access vlans",
                 "version": "0.0.1",
                 "scope": "access",
-                "vlans": [
-                    {"name": "voice", "vlan_id": "10", "vni_id": "null"},
-                    {"name": "multicast", "vlan_id": "20", "vni_id": "null"},
-                ],
+                "name": "voice",
+                "vlan_id": "10",
+                "vni_id": "null",
             }
         }

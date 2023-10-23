@@ -16,7 +16,7 @@ class Fabrics(BaseModel):  # pylint: disable=too-few-public-methods
 
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
-    attributes: list = Field(default_factory=list)
+    attributes: dict = Field(default_factory=dict)
     fabric_id: str = Field(...)
     version: str = Field(...)
     created: datetime = Field(datetime.now())
@@ -49,7 +49,7 @@ class FabricsUpdate(BaseModel):  # pylint: disable=too-few-public-methods
     """
 
     name: str = Field(...)
-    attributes: list = Field(default_factory=list)
+    attributes: dict = Field(default_factory=dict)
     fabric_id: str = Field(...)
     version: str = Field(...)
     updated: datetime = Field(datetime.now())

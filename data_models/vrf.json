@@ -1,8 +1,0 @@
-{
-    "export_route_policy": null,
-    "export_rt": "100:100",
-    "import_route_policy": null,
-    "import_rt": "100:100",
-    "name": "CUST1_VRF",
-    "rd": "100:100"
-}

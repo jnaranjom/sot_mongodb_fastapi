@@ -1,9 +1,0 @@
-{
-    "name": "access vlans",
-    "version": "0.0.1",
-    "scope": "access",
-    "vlans": [
-        {"name": "voice", "vlan_id": "10", "vni_id": "null"},
-        {"name": "multicast", "vlan_id": "20", "vni_id": "null"}
-    ]
-}

@@ -1,11 +1,7 @@
 """  LOCATION MODEL """
 
-from typing import Optional
-from datetime import datetime
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
-
-from server.utils.pyobjectid import PyObjectId
 
 
 class Locations(BaseModel):  # pylint: disable=too-few-public-methods

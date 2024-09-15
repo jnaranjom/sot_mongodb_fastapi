@@ -3,8 +3,7 @@
 """
 
 from typing import List
-from fastapi.encoders import jsonable_encoder
-from fastapi import APIRouter, Body, Request, HTTPException, status
+from fastapi import APIRouter, Request
 from server.models.locations import Locations
 
 locations_route = APIRouter()

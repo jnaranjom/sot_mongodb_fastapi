@@ -1,7 +1,10 @@
 """
-    Class to convert MongoDB object DI from BSON to a JSON strin
+    Class to convert MongoDB object DI from BSON to a JSON string
 """
+
 from bson.objectid import ObjectId
+from pydantic import GetCoreSchemaHandler, GetJsonSchemaHandler
+from pydantic_core import CoreSchema, core_schema
 
 
 class PyObjectId(ObjectId):  # pylint: disable=too-few-public-methods
@@ -19,7 +22,7 @@ class PyObjectId(ObjectId):  # pylint: disable=too-few-public-methods
             raise ValueError("Invalid objectid")
         return ObjectId(v)
 
-    @classmethod
-    def __modify_schema__(cls, field_schema):
-        """ """
-        field_schema.update(type="string")
+    # @classmethod
+    # def __get_pydantic_json_schema__(cls, schema: CoreSchema, handler: GetJsonSchemaHandler):
+    #     """ """
+    #     CoreSchema.update(type="string")

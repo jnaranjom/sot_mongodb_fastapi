@@ -5,22 +5,20 @@ from pydantic import BaseModel, Field
 
 
 class Locations(BaseModel):  # pylint: disable=too-few-public-methods
-    """_summary_
-
-    Args:
-        BaseModel (_type_): _description_
+    """
+    Locations model representing a network location.
     """
 
-    name: str = Field(...)
-    location_type: str = Field(...)
-    parent: str = Field(...)
-    tenant: str = Field(...)
-    zip_code: str = Field(...)
-    address: str = Field(...)
-    description: str = Field(...)
-    status: str = Field(...)
+    name: str = Field(..., description="The name of the location")
+    location_type: str = Field(..., description="The type of the location, e.g., Branch, HQ")
+    parent: str = Field(..., description="The parent location")
+    tenant: str = Field(..., description="The tenant associated with the location")
+    zip_code: str = Field(..., description="The zip code of the location")
+    address: str = Field(..., description="The address of the location")
+    description: str = Field(..., description="A brief description of the location")
+    status: str = Field(..., description="The status of the location, e.g., Active, Staging")
 
-    class Config:  # pylint: disable=too-few-public-methods
+    class ConfigDict:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         populate_by_name = True

@@ -1,28 +1,26 @@
-"""  LOCATION MODEL """
+""" LOCATION MODEL """
 
 from bson.objectid import ObjectId
 from pydantic import BaseModel, Field
 
 
 class Devices(BaseModel):  # pylint: disable=too-few-public-methods
-    """_summary_
-
-    Args:
-        BaseModel (_type_): _description_
+    """
+    Devices model representing a network device.
     """
 
-    name: str = Field(...)
-    location: str = Field(...)
-    tenant: str = Field(...)
-    description: str = Field(...)
-    status: str = Field(...)
-    device_type: str = Field(...)
-    manufacturer: str = Field(...)
-    serial_number: str = Field(...)
-    platform: str = Field(...)
-    role: str = Field(...)
+    name: str = Field(..., description="The name of the device")
+    location: str = Field(..., description="The location of the device")
+    tenant: str = Field(..., description="The tenant of the device")
+    description: str = Field(..., description="A description of the device")
+    status: str = Field(..., description="The status of the device")
+    device_type: str = Field(..., description="The type of the device")
+    manufacturer: str = Field(..., description="The manufacturer of the device")
+    serial_number: str = Field(..., description="The serial number of the device")
+    platform: str = Field(..., description="The platform of the device")
+    role: str = Field(..., description="The role of the device")
 
-    class Config:  # pylint: disable=too-few-public-methods
+    class ConfigDict:  # pylint: disable=too-few-public-methods
         """_summary_"""
 
         populate_by_name = True

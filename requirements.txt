@@ -47,3 +47,4 @@ uvicorn==0.28.0
     # via -r requirements.in
 black
 pylint
+pytest

@@ -10,13 +10,17 @@ class Locations(BaseModel):  # pylint: disable=too-few-public-methods
     """
 
     name: str = Field(..., description="The name of the location")
-    location_type: str = Field(..., description="The type of the location, e.g., Branch, HQ")
+    location_type: str = Field(
+        ..., description="The type of the location, e.g., Branch, HQ"
+    )
     parent: str = Field(..., description="The parent location")
     tenant: str = Field(..., description="The tenant associated with the location")
     zip_code: str = Field(..., description="The zip code of the location")
     address: str = Field(..., description="The address of the location")
     description: str = Field(..., description="A brief description of the location")
-    status: str = Field(..., description="The status of the location, e.g., Active, Staging")
+    status: str = Field(
+        ..., description="The status of the location, e.g., Active, Staging"
+    )
 
     class ConfigDict:  # pylint: disable=too-few-public-methods
         """_summary_"""

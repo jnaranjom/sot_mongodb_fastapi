@@ -78,5 +78,7 @@ def create_device(request: Request, device: DeviceCreate):
         )
 
     new_device = request.app.database["Devices"].insert_one(device.dict())
-    created_device = request.app.database["Devices"].find_one({"_id": new_device.inserted_id})
+    created_device = request.app.database["Devices"].find_one(
+        {"_id": new_device.inserted_id}
+    )
     return created_device

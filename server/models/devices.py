@@ -41,6 +41,7 @@ class Devices(BaseModel):  # pylint: disable=too-few-public-methods
             }
         }
 
+
 class DeviceCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
     location: str = Field(..., min_length=1, max_length=100)

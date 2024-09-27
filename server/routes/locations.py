@@ -32,7 +32,7 @@ def list_locations(request: Request):
     response_description="Get a single location by name",
     response_model=Locations,
 )
-def get_location_by_name(location_namename: str, request: Request):
+def get_location_by_name(location_name: str, request: Request):
     """Retrieves a single network location by its name from the database.
 
     Args:

@@ -40,3 +40,36 @@ class Devices(BaseModel):  # pylint: disable=too-few-public-methods
                 "role": "branch:edge:router",
             }
         }
+
+class DeviceCreate(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100)
+    location: str = Field(..., min_length=1, max_length=100)
+    tenant: str = Field(..., min_length=1, max_length=100)
+    description: str = Field(..., min_length=1, max_length=255)
+    status: str = Field(..., min_length=1, max_length=50)
+    device_type: str = Field(..., min_length=1, max_length=50)
+    manufacturer: str = Field(..., min_length=1, max_length=100)
+    serial_number: str = Field(..., min_length=1, max_length=100)
+    platform: str = Field(..., min_length=1, max_length=50)
+    role: str = Field(..., min_length=1, max_length=50)
+
+    class ConfigDict:  # pylint: disable=too-few-public-methods
+        """_summary_"""
+
+        populate_by_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        json_schema_extra = {
+            "example": {
+                "description": "Branch Router",
+                "location": "dal-br01",
+                "name": "dal-br01-rtr01",
+                "status": "Planned",
+                "tenant": "Branch",
+                "device_type": "iol",
+                "manufacturer": "Cisco",
+                "serial_number": "100001",
+                "platform": "ios",
+                "role": "branch:edge:router",
+            }
+        }

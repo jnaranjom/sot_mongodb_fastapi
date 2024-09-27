@@ -33,8 +33,10 @@ from fastapi import FastAPI
 from pymongo import MongoClient
 from server.routes.locations import locations_route
 from server.routes.devices import devices_route
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
 
 app.include_router(locations_route, tags=["Locations"], prefix="/api/v1")
 app.include_router(devices_route, tags=["Devices"], prefix="/api/v1")

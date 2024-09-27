@@ -32,7 +32,7 @@ def list_locations(request: Request):
     response_description="Get a single location by name",
     response_model=Locations,
 )
-def find_location_by_name(name: str, request: Request):
+def get_location_by_name(location_namename: str, request: Request):
     """Retrieves a single network location by its name from the database.
 
     Args:
@@ -43,8 +43,6 @@ def find_location_by_name(name: str, request: Request):
         dict: The location document retrieved from the "Locations" collection in the database.
     """
     location = request.app.database["Locations"].find_one({"name": location_name})
-    if location is None:
-        raise HTTPException(
-            status_code=404, detail=f"Location with name {location_name} not found"
-        )
-    return location
+    if device is None:
+        return {"error": "Device not found"}
+    return device

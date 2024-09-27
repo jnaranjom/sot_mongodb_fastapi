@@ -43,6 +43,6 @@ def get_location_by_name(location_name: str, request: Request):
         dict: The location document retrieved from the "Locations" collection in the database.
     """
     location = request.app.database["Locations"].find_one({"name": location_name})
-    if device is None:
+    if location is None:
         return {"error": "Device not found"}
-    return device
+    return location

@@ -25,3 +25,26 @@ def list_locations(request: Request):
     """
     locations_list = list(request.app.database["Locations"].find(limit=200))
     return locations_list
+
+
+@locations_route.get(
+    "/locations/name/{location_name}",
+    response_description="Get a single location by name",
+    response_model=Locations,
+)
+def find_location_by_name(name: str, request: Request):
+    """Retrieves a single network location by its name from the database.
+
+    Args:
+        name (str): The name of the location to retrieve.
+        request (Request): The request object containing the application context and database connection.
+
+    Returns:
+        dict: The location document retrieved from the "Locations" collection in the database.
+    """
+    location = request.app.database["Locations"].find_one({"name": location_name})
+    if location is None:
+        raise HTTPException(
+            status_code=404, detail=f"Location with name {location_name} not found"
+        )
+    return location
